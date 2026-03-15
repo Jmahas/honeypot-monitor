@@ -1,0 +1,5 @@
+Proyecto HoneyPot
+
+SOCKETS
+https://www.freecodecamp.org/news/socket-programming-in-python
+
