@@ -2,7 +2,7 @@ import sqlite3
 
 DB_PATH = "datos/honeypot.db"
 
-
+# Creamos la base de datos y la tabla para almacenar los intentos de ataque si no existen
 def init_db():
     conexion = sqlite3.connect(DB_PATH)
     cursor = conexion.cursor()
@@ -23,6 +23,7 @@ def init_db():
     conexion.close()
 
 
+# Función para guardar un intento de ataque en la base de datos
 def guardar_intento_ataque(e):
     conexion = sqlite3.connect(DB_PATH)
     cursor = conexion.cursor()
@@ -45,4 +46,5 @@ def guardar_intento_ataque(e):
     conexion.commit()
     conexion.close()
 
+# Inicializamos la base de datos al cargar este módulo para asegurarnos de que la tabla exista antes de intentar guardar cualquier intento de ataque.
 init_db()

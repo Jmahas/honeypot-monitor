@@ -1,27 +1,7 @@
-""" import paramiko
-
-def atacar_honeypot():
-    client = paramiko.SSHClient()
-    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    
-    password_list = ["1234", "admin", "password", "root", "qwerty", "test1", "login", "secret", "guest", "superman"]
-    
-    print("[*] Iniciando ataque de fuerza bruta...")
-    
-    for pwd in password_list:
-        try:
-            # Intentamos conectar
-            client.connect('127.0.0.1', port=2222, username='test', password=pwd, timeout=5)
-        except paramiko.AuthenticationException:
-            print(f"[-] Intento fallido con: {pwd}")
-        except Exception as e:
-            print(f"[!] Error: {e}")
-            break
-    
-    client.close()
-
-if __name__ == "__main__":
-    atacar_honeypot() """
+"""
+Este script es un simulador de ataques SSH que se conecta al honeypot en el puerto 2222.
+Cada hilo simula un atacante diferente, intentando varias combinaciones de usuario y contraseña.
+El objetivo es generar tráfico de ataque realista para probar la funcionalidad del honeypot y la visualización en el mapa."""
 
 import paramiko
 import threading
@@ -52,13 +32,14 @@ def atacar_hilo(id_atacante, num_intentos):
     
     client.close()
 
+
 def ataque_global(total_hilos):
     hilos = []
     print(f"[*] LANZANDO ATAQUE SIMULTÁNEO CON {total_hilos} HILOS...")
     
     for i in range(total_hilos):
-        # Cada hilo hará 10 intentos
-        t = threading.Thread(target=atacar_hilo, args=(i, 10))
+        # Cada hilo hará 5 intentos
+        t = threading.Thread(target=atacar_hilo, args=(i, 5))
         hilos.append(t)
         t.start()
         time.sleep(0.1) # Escalonar ligeramente el inicio
